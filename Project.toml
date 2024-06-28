@@ -1,0 +1,8 @@
+name = "Upset"
+uuid = "1a6cccfe-9453-4f45-ae2b-5720a5442c35"
+authors = ["Rowan Callahan <rowan.callahan@hey.com>"]
+version = "0.1.0"
+
+[deps]
+Combinatorics = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
