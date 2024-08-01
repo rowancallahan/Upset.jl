@@ -1,11 +1,61 @@
 module Upset
-
-
 import Combinatorics
 import Plots
+export presence_matrix, plot_upset
 
-greet() = print("Hello World! we are doing hte tutorial")
 
+"""
+ presence_matrix(list_in, lengths_list)
+
+Compute a matrix of elements that tests whether an element is present in each list in a list of lists.
+returns a matrix 0/1 whether an element is present. Elements along the rows, as well as element list on the columns.
+
+# Examples
+
+```julia-repl
+
+julia> presence_matrix([[],["a","b"]], [0,2])
+(matrix of 0/1)
+```
+
+
+"""
+function presence_matrix(list_in, lengths_list)
+    all_elements = unique(vcat(list_in...))
+    out_mat = Matrix{Int}(undef, 0, length(all_elements))
+
+    for i in 1:length(list_in)
+        if lengths_list[i] > 0
+            sublist = list_in[i]
+            new_row = [elem in sublist ? 1 : 0 for elem in all_elements]
+            out_mat = vcat(out_mat, new_row')
+        end
+    end
+
+    return out_mat
+end
+
+
+"""
+ plot_upset(dict_in)
+
+Compute an upset plot giving a dictionary of lists. Each list in the dictionary is a list of the unique elements that are present in a set. Used for comparing presence of unique items across groups.
+
+Requires that there exists more than one list in the dictionary in order to look for overlap.
+
+Also requires that at least one list has one item present in it.
+
+# Examples
+
+```julia-repl
+
+julia> a =    input_dict = Dict(
+               "list1" => ['l','t','A','B'],
+               "list2" => ['l','t','A','B','C','l'])
+julia> plot_upset(a) 
+returns a plot using plots
+```
+"""
 function plot_upset(my_dict)
     keys_list = collect(keys(my_dict))
     #have to make sure its in both of a and none of everything else
@@ -36,21 +86,6 @@ function plot_upset(my_dict)
 
 
         end
-    end
-
-    function presence_matrix(list_in, lengths_list)
-        all_elements = unique(vcat(list_in...))
-        out_mat = Matrix{Int}(undef, 0, length(all_elements))
-
-        for i in 1:length(list_in)
-            if lengths_list[i] > 0
-                sublist = list_in[i]
-                new_row = [elem in sublist ? 1 : 0 for elem in all_elements]
-                out_mat = vcat(out_mat, new_row')
-            end
-        end
-
-        return out_mat
     end
 
 
@@ -128,10 +163,9 @@ function plot_upset(my_dict)
     for i in 1:length(filtered_intersection_lengths)
         Plots.annotate!(i, filtered_intersection_lengths[i] + 5.0, subplot=2, Plots.text(filtered_intersection_lengths[i], :center))
     end
-    return combined_plot_side
+    return [combined_plot_side, [filtered_intersection_lengths, source_group]] 
     
 end
-
 
 
 end # module Upset
