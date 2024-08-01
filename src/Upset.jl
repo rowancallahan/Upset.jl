@@ -1,25 +1,9 @@
 module Upset
 import Combinatorics
 import Plots
-export presence_matrix, plot_upset
+export plot_upset
 
 
-"""
- presence_matrix(list_in, lengths_list)
-
-Compute a matrix of elements that tests whether an element is present in each list in a list of lists.
-returns a matrix 0/1 whether an element is present. Elements along the rows, as well as element list on the columns.
-
-# Examples
-
-```julia-repl
-
-julia> presence_matrix([[],["a","b"]], [0,2])
-(matrix of 0/1)
-```
-
-
-"""
 function presence_matrix(list_in, lengths_list)
     all_elements = unique(vcat(list_in...))
     out_mat = Matrix{Int}(undef, 0, length(all_elements))
@@ -52,8 +36,23 @@ Also requires that at least one list has one item present in it.
 julia> a =    input_dict = Dict(
                "list1" => ['l','t','A','B'],
                "list2" => ['l','t','A','B','C','l'])
-julia> plot_upset(a) 
-returns a plot using plots
+
+Dict{String, Vector{Char}} with 2 entries:
+  "list1" => ['l', 't', 'A', 'B']
+  "list2" => ['l', 't', 'A', 'B', 'C', 'l']
+
+julia> result = plot_upset(a) 
+
+2-element Vector{Any}:
+ Plot{Plots.GRBackend() n=8}
+Captured extra kwargs:
+  Series{3}:
+    series_annotations_align: right
+  Series{4}:
+    series_annotations_align: right
+
+ Vector{Any}[[4, 1], ["list1", "list2", "list2"]]
+
 ```
 """
 function plot_upset(my_dict)
@@ -102,7 +101,6 @@ function plot_upset(my_dict)
         y_index,
         marker = :circle,
         markersize = 7,
-        group = source_group,
         legend = false,
         grid = true,
         axis = false,
@@ -111,9 +109,7 @@ function plot_upset(my_dict)
 
     reverse_intersection_length = reverse(intersection_lengths)
     filtered_intersection_lengths = filter(x -> x != 0, reverse_intersection_length)
-    
 
-    # ╔═╡ 0c4df824-643b-405d-9652-f4ae053a2beb
     barplot_number = Plots.bar(
         filtered_intersection_lengths,
         legend=false,
@@ -125,7 +121,6 @@ function plot_upset(my_dict)
         bar_width=0.60,
     )
 
-    # ╔═╡ 49b93f21-cf33-444f-86da-30cd738e49fd
     blank_plot1 = Plots.plot(framestyle = :none, grid = false, xlims = (0, 10), ylims = (0, 10), legend = false, axis = false, ticks = false)
 
     label_plot = Plots.scatter(
