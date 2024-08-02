@@ -40,4 +40,6 @@ Captured extra kwargs:
 
 ```
 
+Returned is a list with two elements. The first is the plotting element and the second is a list that contains the number of elements for each overlap and secondly what groups are in each overlap.
+Will later become a list of lists such that it is clear what groups go with what index.
 
