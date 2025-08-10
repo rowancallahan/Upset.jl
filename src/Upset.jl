@@ -2,6 +2,9 @@ module Upset
 import Combinatorics
 import Plots
 export plot_upset
+export to_presence_dict
+
+
 
 
 function presence_matrix(list_in, lengths_list)
@@ -17,6 +20,44 @@ function presence_matrix(list_in, lengths_list)
     end
 
     return out_mat
+end
+
+
+"""
+ to_presence_dict(count_matrix, row_names)
+
+Creates a presence dictionary from a counts matrix of different items.
+Given a count matrix with rows being groups and columns items calculate the a dictionary that has the items that are present within  
+
+# Examples
+
+```julia-repl
+
+julia> count_matrix = hcat([1,1,1],[0,1,1],[0,0,0])
+3×3 Matrix{Int64}:
+ 1  0  0
+ 1  1  0
+ 1  1  0
+
+julia> result = to_presence_dict(count_matrix, row_names) 
+
+```
+"""
+function to_presence_dict(count_matrix, row_names{Vector{String}})
+    #create a presence dictionary that we want to feed in later
+    presence_dict= Dict{String, Vector{String}}()
+    ##TODO create different backends accessible for plotting
+    for (row_index,row) in enumerate(eachrow(named_df))
+         presence_list = String[]
+         for (index,value) in enumerate(row)
+             if value>0
+               push!(presence_list, names(named_df)[index])
+             end
+         end
+	 presence_dict[row_names[row_index]] = presence_list
+    end
+
+    return(presence_dict)
 end
 
 
