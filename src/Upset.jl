@@ -43,7 +43,7 @@ julia> result = to_presence_dict(count_matrix, row_names)
 
 ```
 """
-function to_presence_dict(count_matrix, row_names{Vector{String}})
+function to_presence_dict(count_matrix, row_names::Vector{String})
     #create a presence dictionary that we want to feed in later
     presence_dict= Dict{String, Vector{String}}()
     ##TODO create different backends accessible for plotting
