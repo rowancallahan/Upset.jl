@@ -1,10 +1,9 @@
 # Upset.jl Documentation
 
 ## Index
-```
-@contents
 
-@index
+```@index
+
 ```
 
 ## Functions
