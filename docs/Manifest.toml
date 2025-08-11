@@ -879,7 +879,7 @@ version = "0.2.0"
 
 [[deps.Upset]]
 deps = ["Combinatorics", "Plots", "Test"]
-path = "/Users/rowancallahan/.julia/dev/Upset"
+path = ".."
 uuid = "1a6cccfe-9453-4f45-ae2b-5720a5442c35"
 version = "0.1.0"
 

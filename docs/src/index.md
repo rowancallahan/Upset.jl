@@ -1,16 +1,20 @@
 # Upset.jl Documentation
 
-```@contents
+## Index
+```
+@contents
+
+@index
 ```
 
 ## Functions
 
 ```@docs
 
-plot_upset(dict_in)
+plot_upset
+
+to_presence_dict
+
 ```
 
-## Index
 
-```@index
-```
